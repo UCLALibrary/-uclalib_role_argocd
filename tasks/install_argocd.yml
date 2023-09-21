@@ -1,15 +1,15 @@
 ---
 
-- name: Create temp gitops kubernetes working directory
+- name: Create temp gitops working directory
   tempfile:
     state: directory
     suffix: gitops
   register: gitops_tmp
   notify: Remove gitops temp dir
 
-- name: Pull GitOps Kubernetes GitHub Repo 
+- name: Pull GitHub Repo with env-specific values file
   git: 
-    repo: "{{ gitops_kubernetes_repo_url }}"
+    repo: "{{ argocd_values_file_repo_url }}"
     dest: "{{ gitops_tmp.path }}"
     version: "main"
 

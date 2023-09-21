@@ -81,9 +81,9 @@ Role Variables
     !!! Be sure to set this in the appropriate argocd host var
     ```
 
- - `gitops_kubernetes_repo_url`
+ - `argocd_values_file_repo_url`
     ```
-    GitHub repo URL holding our env-specific values file for ArgoCD
+    GitHub repo URL holding the env-specific values file for ArgoCD
     ```
 
  - `argocd_env_values_path`
