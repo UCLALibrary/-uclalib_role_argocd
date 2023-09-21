@@ -37,8 +37,8 @@ argocd_helm_chart_repo: "https://argoproj.github.io/argo-helm"
 # !!! Be sure to set this in the appropriate argocd host var
 argocd_version: ""
 
-# GitHub repo URL holding our env-specific values file for ArgoCD
-gitops_kubernetes_repo_url: "https://github.com/UCLALibrary/gitops_kubernetes"
+# GitHub repo URL holding the env-specific values file for ArgoCD
+argocd_values_file_repo_url: ""
 
 # Path to the env-specific helm values file for argocd
 # Relative the temp work directory where the gitops kubernetes repo is cloned
