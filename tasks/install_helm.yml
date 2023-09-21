@@ -1,0 +1,27 @@
+---
+
+- name: Create temporary helm directory
+  tempfile:
+    state: directory
+    suffix: helm
+  register: helm_installer
+  notify: Remove helm temp dir
+
+- name: Download Helm
+  get_url:
+    url: "https://get.helm.sh/helm-v{{ helm_version }}-linux-amd64.tar.gz"
+    dest: "{{ helm_installer.path }}"
+    checksum: "sha256:https://get.helm.sh/helm-v{{ helm_version }}-linux-amd64.tar.gz.sha256sum"
+
+- name: Unarchive helm tarball
+  unarchive:
+    src: "{{ helm_installer.path }}/helm-v{{ helm_version}}-linux-amd64.tar.gz"
+    dest: "{{ helm_installer.path }}"
+
+- name: Install helm
+  copy:
+    src: "{{ helm_installer.path }}/linux-amd64/helm"
+    dest: /usr/local/bin
+    mode: 0755
+    owner: root
+    group: root

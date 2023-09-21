@@ -1,0 +1,19 @@
+--- 
+
+- name: Install Cert Manager with CRDs
+  command:
+    cmd: |
+      helm upgrade --install
+      cert-manager jetstack/cert-manager
+      --namespace cert-manager
+      --create-namespace
+      --version {{ cert_manager_version }}
+      --set installCRDs=true
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"
+  register: manifest
+  changed_when:
+    - '"cannot re-use a name that is still in use" not in manifest.stderr'
+  failed_when:
+    - manifest.rc != 0
+    - '"cannot re-use a name that is still in use" not in manifest.stderr'
