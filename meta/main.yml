@@ -1,0 +1,21 @@
+---
+
+galaxy_info:
+  role_name: uclalib_role_argocd
+  namespace: uclalibrary
+  author: Stephen Gurnick <sgurnick@ucla.edu>
+  description: Installs and Upgrades ArgoCD within Kubernetes (k3s)
+  company: UCLA Library
+
+  license: BSD-3-Clause
+
+  min_ansible_version: "2.1"
+
+  platforms:
+    - name: EL
+      version:
+        - '8'
+
+  galaxy_tags: []
+
+dependencies: []

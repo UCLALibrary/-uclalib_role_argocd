@@ -1,0 +1,12 @@
+---
+# handlers file for uclalib_role_argocd
+
+- name: Remove helm temp dir
+  file:
+    path: '{{ helm_installer.path }}'
+    state: absent
+
+- name: Remove gitops temp dir
+  file:
+    path: '{{ gitops_tmp.path }}'
+    state: absent
