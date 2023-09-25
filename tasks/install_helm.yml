@@ -26,3 +26,4 @@
     mode: 0755
     owner: root
     group: root
+    remote_src: "yes"
