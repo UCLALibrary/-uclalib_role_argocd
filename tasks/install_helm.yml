@@ -17,6 +17,7 @@
   unarchive:
     src: "{{ helm_installer.path }}/helm-v{{ helm_version}}-linux-amd64.tar.gz"
     dest: "{{ helm_installer.path }}"
+    remote_src: "yes"
 
 - name: Install helm
   copy:
