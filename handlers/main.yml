@@ -5,6 +5,7 @@
   file:
     path: '{{ helm_installer.path }}'
     state: absent
+  become: true 
 
 - name: Remove gitops temp dir
   file:
