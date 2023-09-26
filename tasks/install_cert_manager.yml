@@ -2,7 +2,7 @@
 
 - name: Install Cert Manager with CRDs
   command:
-    cmd: |
+    cmd: >
       helm upgrade --install
       cert-manager jetstack/cert-manager
       --namespace cert-manager

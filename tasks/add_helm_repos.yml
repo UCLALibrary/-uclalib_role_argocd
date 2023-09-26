@@ -1,24 +1,24 @@
 --- 
 
 - name: Add External Secrets Helm Chart Repo
-  command:
-    cmd: helm repo add external-secrets {{ external_secrets_helm_chart_repo }}
+  command: >
+    helm repo add external-secrets {{ external_secrets_helm_chart_repo }}
   register: externsecrets_add_repo
   changed_when: '"has been added to your repositories" in externsecrets_add_repo.stdout'
 
 - name: Add Jetstack Helm Chart Repo (for Cert-Manager)
-  command:
-    cmd: helm repo add jetstack {{ cert_manager_helm_chart_repo }}
+  command: >
+    helm repo add jetstack {{ cert_manager_helm_chart_repo }}
   register: jetstack_add_repo
   changed_when: '"has been added to your repositories" in jetstack_add_repo.stdout'
 
 - name: Add Argo Helm Chart Repo 
-  command:
-     cmd: helm repo add argo {{ argocd_helm_chart_repo }}
+  command: >
+    helm repo add argo {{ argocd_helm_chart_repo }}
   register: argo_add_repo 
   changed_when: '"has been added to your repositories" in argo_add_repo.stdout'
 
 - name: Update helm repositories
-  command:
-    cmd: helm repo update
+  command: >
+    helm repo update
   changed_when: false
