@@ -15,7 +15,7 @@
 
 - name: Install ArgoCD
   command:
-    cmd: |
+    cmd: >
       helm upgrade --install 
         argocd argo/argo-cd
         --namespace argocd 
