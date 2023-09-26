@@ -6,18 +6,21 @@
     suffix: helm
   register: helm_installer
   notify: Remove helm temp dir
+  become: true
 
 - name: Download Helm
   get_url:
     url: "https://get.helm.sh/helm-v{{ helm_version }}-linux-amd64.tar.gz"
     dest: "{{ helm_installer.path }}"
     checksum: "sha256:https://get.helm.sh/helm-v{{ helm_version }}-linux-amd64.tar.gz.sha256sum"
+  become: true
 
 - name: Unarchive helm tarball
   unarchive:
     src: "{{ helm_installer.path }}/helm-v{{ helm_version}}-linux-amd64.tar.gz"
     dest: "{{ helm_installer.path }}"
     remote_src: "yes"
+  become: true
 
 - name: Install helm
   copy:
@@ -27,3 +30,4 @@
     owner: root
     group: root
     remote_src: "yes"
+  become: true
