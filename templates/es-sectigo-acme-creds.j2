@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: sectigo-acme-issueraccount-rsa-pem
+spec:
+  refreshInterval: {{ $.Values.external_secrets.refresh_interval }}
+  secretStoreRef:
+    name: {{ argocd_secretstoreref_name }}
+    kind: {{ argocd_secretstoreref_type }}
+  target:
+    name: sectigo-acme-issueraccount-rsa-pem
+  data:
+  - secretKey: tls.key
+    remoteRef:
+      key: /devsupport/argocd/sectigo/tls/cert

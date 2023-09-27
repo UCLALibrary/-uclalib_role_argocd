@@ -49,3 +49,8 @@ argocd_env_values_path: ""
 # Name of the Secret resource holding AWS credentials
 # Used for creating the ExternalSecrets ClusterSecretStore resource
 argocd_aws_access_secret_name: "argocd-awsaccess-secret"
+
+# Type of External Secrets store resource
+argocd_secretstoreref_type: ClusterSecretStore
+# Name of the ArgoCD External Secrets ClusterSecretStore resource
+argocd_secretstoreref_name: argocd-clustersecretstore
