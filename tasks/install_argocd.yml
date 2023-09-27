@@ -13,7 +13,24 @@
     dest: "{{ gitops_tmp.path }}"
     version: "main"
 
-- name: Install ArgoCD
+- name: Create ArgoCD Kubernetes Namespace 
+  command: > 
+    kubectl create ns argocd 
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"
+
+- name: Create the ExternalSecret manifest file holding Sectigo ACME credentials 
+  template: 
+    src: "es-sectigo-acme-creds.j2"
+    dest: "{{ gitops_tmp.path }}/es-sectigo-acme-creds.j2"
+
+- name: Create the ExternalSecret resource for Sectigo ACME credentials 
+  command: > 
+    kubectl apply -f {{ gitops_tmp.path }}/es-sectigo-acme-creds.j2
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"
+
+- name: Install ArgoCD using env-specific values file
   command:
     cmd: >
       helm upgrade --install 
@@ -30,4 +47,3 @@
   failed_when:
     - manifest.rc != 0
     - '"cannot re-use a name that is still in use" not in manifest.stderr'
-
