@@ -4,7 +4,7 @@ kind: ExternalSecret
 metadata:
   name: sectigo-acme-issueraccount-rsa-pem
 spec:
-  refreshInterval: {{ $.Values.external_secrets.refresh_interval }}
+  refreshInterval: 10m
   secretStoreRef:
     name: {{ argocd_secretstoreref_name }}
     kind: {{ argocd_secretstoreref_type }}
