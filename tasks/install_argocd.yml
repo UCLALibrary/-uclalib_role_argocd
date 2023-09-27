@@ -19,7 +19,7 @@
   environment:
     KUBECONFIG: "{{ k3s_kubeconfig_path }}"
 
-- name: Create the ExternalSecret resource holding Sectigo ACME credentials 
+- name: Create the ExternalSecret manifest file holding Sectigo ACME credentials 
   template: 
     src: "es-sectigo-acme-creds.j2"
     dest: "{{ gitops_tmp.path }}/es-sectigo-acme-creds.j2"
