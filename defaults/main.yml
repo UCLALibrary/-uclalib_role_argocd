@@ -45,3 +45,7 @@ argocd_values_file_repo_url: ""
 # Example: gitops_kubernetes/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
 # !!! Be sure to set this in the appropriate argocd host var
 argocd_env_values_path: ""
+
+# Name of the Secret resource holding AWS credentials
+# Used for creating the ExternalSecrets ClusterSecretStore resource
+argocd_aws_access_secret_name: "argocd-awsaccess-secret"
