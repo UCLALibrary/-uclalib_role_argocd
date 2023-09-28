@@ -1,5 +1,12 @@
 --- 
 
+- name: Create temp cert manager working directory
+  tempfile:
+    state: directory
+    suffix: certmgr
+  register: certmgr_tmp
+  notify: Remove certmgr temp dir
+
 - name: Install Cert Manager with CRDs
   command:
     cmd: >
@@ -17,3 +24,14 @@
   failed_when:
     - manifest.rc != 0
     - '"cannot re-use a name that is still in use" not in manifest.stderr'
+
+- name: Create the ExternalSecret manifest file holding Sectigo ACME credentials 
+  template: 
+    src: "es-sectigo-acme-creds.j2"
+    dest: "{{ certmgr_tmp.path }}/es-sectigo-acme-creds.j2"
+
+- name: Create the ExternalSecret resource for Sectigo ACME credentials 
+  command: > 
+    kubectl apply -f {{ certmgr_tmp.path }}/es-sectigo-acme-creds.j2
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"
