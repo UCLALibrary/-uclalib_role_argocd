@@ -7,11 +7,22 @@
   register: gitops_tmp
   notify: Remove gitops temp dir
 
-- name: Pull GitHub Repo with env-specific values file
-  git: 
-    repo: "{{ argocd_values_file_repo_url }}"
-    dest: "{{ gitops_tmp.path }}"
-    version: "main"
+- name: Create temp working space
+  tempfile:
+    state: directory
+    suffix: argocd_wd
+  register: argocd_wd
+
+#- name: Pull GitHub Repo with env-specific values file
+#  git: 
+#    repo: "{{ argocd_values_file_repo_url }}"
+#    dest: "{{ gitops_tmp.path }}"
+#    version: "main"
+#
+- name: Copy argocd-values locally
+  copy:
+    src: values.yaml
+    dest: "{{ argocd_wd.path }}"
 
 - name: Install ArgoCD using env-specific values file
   command:
@@ -19,7 +30,7 @@
       helm upgrade --install 
         argocd argo/argo-cd
         --namespace argocd 
-        -f {{ gitops_tmp.path }}/{{ argocd_env_values_path }}
+        -f {{ argocd_wd.path }}/values.yaml
         --create-namespace
         --version {{ argocd_version }}
   environment:
