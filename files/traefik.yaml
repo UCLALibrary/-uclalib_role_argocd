@@ -1,0 +1,45 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`argocd-test.library.ucla.edu`)
+      priority: 10
+      services:
+        - name: argocd-server
+          port: 80
+    - kind: Rule
+      match: Host(`argocd-test.library.ucla.edu`) && Headers(`Content-Type`, `application/grpc`)
+      priority: 11
+      services:
+        - name: argocd-server
+          port: 80
+          scheme: h2c
+  tls:
+    certResolver: default
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: argocd-whitelist-ipranges
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 164.67.40.0/24
+      - 164.67.48.0/24
+      - 128.97.244.0/23
+      - 131.179.156.0/22
+      - 131.179.220.0/22
+      - 149.142.26.0/24
+      - 149.142.224.0/23
+      - 164.67.62.0/27
+      - 164.67.62.80/28
+      - 164.67.62.96/28
+      - 172.27.0.0/16

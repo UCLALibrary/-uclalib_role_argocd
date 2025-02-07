@@ -1,0 +1,19 @@
+--- 
+
+- name: Create temp traefik working directory
+  tempfile:
+    state: directory
+    suffix: traefik_wd
+  register: traefik_wd
+  notify: Remove traefik_wd temp dir
+
+- name: Copy Traefik rules file
+  copy: 
+    src: "traefik.yaml"
+    dest: "{{ traefik_wd.path }}/traefik.yaml"
+
+- name: Deploy Traefik rules
+  command: > 
+    kubectl apply -f {{ traefik_wd.path }}/traefik.yaml
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"
