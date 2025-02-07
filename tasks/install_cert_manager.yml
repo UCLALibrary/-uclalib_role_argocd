@@ -41,3 +41,26 @@
     kubectl apply -f {{ certmgr_tmp.path }}/es-sectigo-acme-creds.j2
   environment:
     KUBECONFIG: "{{ k3s_kubeconfig_path }}"
+
+- name: Deploy Sectigo ClusterIssuer
+  command:
+    cmd: >
+      kubectl apply -f - <<EOF
+        ---
+        apiVersion: cert-manager.io/v1
+        kind: ClusterIssuer
+        metadata:
+          name: sectigo-acme-clusterissuer
+          namespace: cert-manager
+        spec:
+          acme:
+            disableAccountKeyGeneration: true
+            email: devsupport@library.ucla.edu
+            preferredChain: ""
+            privateKeySecretRef:
+              name: sectigo-acme-issueraccount-rsa-pem
+            server: https://acme.sectigo.com/v2/InCommonRSAOV
+            solvers:
+            - http01:
+                ingress:
+                  class: traefik
