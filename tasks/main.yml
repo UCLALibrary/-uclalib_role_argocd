@@ -8,14 +8,14 @@
 - import_tasks: add_helm_repos.yml
   tags:
     - add-helm-repos
-#
-#- import_tasks: install_external_secrets.yml
-#  tags:
-#    - install-external-secrets
 
-#- import_tasks: install_cert_manager.yml 
-#  tags:
-#    - install-cert-manager
+- import_tasks: install_external_secrets.yml
+  tags:
+    - install-external-secrets
+
+- import_tasks: install_cert_manager.yml 
+  tags:
+    - install-cert-manager
 
 - import_tasks: install_argocd.yml
   tags:
