@@ -14,5 +14,5 @@ spec:
     server: https://acme.sectigo.com/v2/InCommonRSAOV
     solvers:
     - http01:
-      ingress:
-        class: traefik
+        ingress:
+          class: traefik
