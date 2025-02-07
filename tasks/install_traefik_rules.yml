@@ -5,7 +5,6 @@
     state: directory
     suffix: traefik_wd
   register: traefik_wd
-  notify: Remove traefik_wd temp dir
 
 - name: Copy Traefik rules file
   copy: 
