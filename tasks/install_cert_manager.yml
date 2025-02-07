@@ -44,7 +44,7 @@
 
 - name: Copy Sectigo EAB ClusterIssuer file
   copy: 
-    src: "es-sectigo-acme-creds.j2"
+    src: "sectigo.yaml"
     dest: "{{ certmgr_tmp.path }}/sectigo.yaml"
 
 - name: Deploy ClusterIssuer
