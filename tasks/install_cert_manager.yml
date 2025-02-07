@@ -13,7 +13,6 @@
   register: jetstack_add_repo
   changed_when: '"has been added to your repositories" in jetstack_add_repo.stdout'
 
-
 - name: Install Cert Manager with CRDs
   command:
     cmd: >
