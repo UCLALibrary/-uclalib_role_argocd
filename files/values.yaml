@@ -185,7 +185,7 @@ configs:
 
     # -- Enable local admin user
     ## Ref: https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
-    admin.enabled: true
+    admin.enabled: false
 
     # -- Timeout to discover if a new manifests version got published to the repository
     timeout.reconciliation: 180s
@@ -197,6 +197,31 @@ configs:
     ## Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/
     statusbadge.enabled: false
 
+    dex.config: |
+      connectors:
+        - type: ldap
+          name: UCLA Library AD
+          id: ad
+          config:
+            host: lit01.ad.library.ucla.edu:636
+            bindDN: $ldap.binddn
+            bindPW: $ldap.bindpw
+            rootCAData: $ldap.cacrt
+            userSearch:
+              baseDN: "ou=LibrarySTAFF,ou=Users,ou=LibIT,dc=ad,dc=library,dc=ucla,dc=edu"
+              filter: "(objectClass=person)"
+              username: sAMAccountName
+              idAttr: distinguishedName
+              emailAttr: mail
+              nameAttr: cn
+            groupSearch:
+              baseDN: "ou=Groups,ou=LibIT,dc=ad,dc=library,dc=ucla,dc=edu"
+              filter: "(objectClass=group)"
+              userMatchers:
+              - userAttr: distinguishedName
+                groupAttr: member
+              nameAttr: cn
+ 
     # Dex configuration
     # dex.config: |
     #   connectors:
@@ -3323,9 +3348,9 @@ notifications:
   # -- Configures notification services such as slack, email or custom webhook
   # @default -- See [values.yaml]
   ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/
-  notifiers: {}
-    # service.slack: |
-    #   token: $slack-token
+  notifiers:
+    service.slack: |
+      token: $slack-token
 
   # -- Annotations to be applied to the notifications controller Deployment
   deploymentAnnotations: {}

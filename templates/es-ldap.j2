@@ -1,0 +1,27 @@
+# LDAP
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: argocd-secret
+spec:
+  refreshInterval: 10m
+  secretStoreRef:
+    name: {{ argocd-secretstoreref_name }}
+    kind: {{ argocd_secretstoreref_type }}
+  target:
+    name: argocd-secret
+  data:
+  - secretKey: ldap.binddn
+    remoteRef:
+      key: /devsupport/argocd/ldap/uclalibrary_bind_dn
+  - secretKey: ldap.bindpw
+    remoteRef:
+      key: /devsupport/argocd/ldap/uclalibrary_bind_pw
+  - secretKey: ldap.cacrt
+    remoteRef:
+      key: /devsupport/argocd/ldap/uclalibrary_ad_ca_crt
+  - secretKey: server.secretkey
+    remoteRef:
+      key: /devsupport/argocd/server/server_secretkey
+ 

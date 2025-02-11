@@ -54,3 +54,5 @@ argocd_aws_access_secret_name: "argocd-awsaccess-secret"
 argocd_secretstoreref_type: ClusterSecretStore
 # Name of the ArgoCD External Secrets ClusterSecretStore resource
 argocd_secretstoreref_name: argocd-clustersecretstore
+
+argocd_namespace: "argocd"

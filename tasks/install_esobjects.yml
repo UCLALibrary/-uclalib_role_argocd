@@ -1,0 +1,30 @@
+--- 
+- name: Create temp external secrets working directory
+  tempfile:
+    state: directory
+    suffix: esobjects
+  register: esobjects_tmp
+  notify: Remove esobjects temp dir
+
+- name: Create Secret Manifest File for Slack Token
+  template: 
+    src: "es-slack.j2"
+    dest: "{{ esobjects_tmp.path }}/es-slack.yml"
+
+- name: Create ExternalSecrets for Slack Token
+  command: >
+    kubectl apply -f {{ esobjects_tmp.path }}/es-slack.yml -n {{ argocd_namespace }}
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"
+
+
+- name: Create Secret Manifest File for LDAP
+  template: 
+    src: "es-ldap.j2"
+    dest: "{{ esobjects_tmp.path }}/es-ldap.yml"
+    
+- name: Create ExternalSecrets for LDAP
+  command: >
+    kubectl apply -f {{ esobjects_tmp.path }}/es-ldap.yml -n {{ argocd_namespace }}
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"
