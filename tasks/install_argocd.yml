@@ -12,25 +12,20 @@
     state: directory
     suffix: argocd_wd
   register: argocd_wd
+  notify: Remove argocd temp dir
 
-#- name: Pull GitHub Repo with env-specific values file
-#  git: 
-#    repo: "{{ argocd_values_file_repo_url }}"
-#    dest: "{{ gitops_tmp.path }}"
-#    version: "main"
-#
 - name: Copy argocd-values locally
-  copy:
-    src: values.yaml
-    dest: "{{ argocd_wd.path }}"
+  template:
+    src: "argocd-{{ argocd_version }}-values.j2"
+    dest: "{{ argocd_wd.path }}/argocd-{{ argocd_version }}-values.yaml"
 
 - name: Install ArgoCD using env-specific values file
   command:
     cmd: >
       helm upgrade --install 
         argocd argo/argo-cd
-        --namespace argocd 
-        -f {{ argocd_wd.path }}/values.yaml
+        --namespace {{ argocd_namespace }}
+        -f {{ argocd_wd.path }}/argocd-{{ argocd_version }}-values.yaml
         --create-namespace
         --version {{ argocd_version }}
   environment:

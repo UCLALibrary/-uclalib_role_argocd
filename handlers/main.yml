@@ -12,6 +12,11 @@
     path: '{{ gitops_tmp.path }}'
     state: absent
 
+- name: Remove argocd temp dir
+  file:
+    path: '{{ argocd_wd.path }}'
+    state: absent
+
 - name: Remove externsecret temp dir
   file:
     path: '{{ externsecret_tmp.path }}'

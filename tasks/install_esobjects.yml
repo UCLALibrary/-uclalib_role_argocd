@@ -17,7 +17,6 @@
   environment:
     KUBECONFIG: "{{ k3s_kubeconfig_path }}"
 
-
 - name: Create Secret Manifest File for LDAP
   template: 
     src: "es-ldap.j2"
