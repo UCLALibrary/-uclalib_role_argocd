@@ -354,11 +354,35 @@ configs:
 
     # -- The name of the default role which Argo CD will falls back to, when authorizing API requests (optional).
     # If omitted or empty, users may be still be able to login, but will see no apps, projects, etc...
-    policy.default: ''
+    policy.default: 'role:none'
 
     # -- File containing user-defined policies and role definitions.
     # @default -- `''` (See [values.yaml])
-    policy.csv: ''
+    policy.csv: |
+      p, role:none, *, *, */*, deny
+      p, role:services-dev, applications, action/extensions/Deployment/restart, *, allow
+      p, role:services-dev, applications, action/apps/Deployment/restart, *, allow
+      p, role:services-dev, applications, get, *, allow
+      p, role:services-dev, applications, sync, *, allow
+      p, role:services-dev, logs, get, *, allow
+      p, role:services-dev, projects, get, *, allow
+      p, role:systems-dev, applications, action/extensions/Deployment/restart, *, allow
+      p, role:systems-dev, applications, action/apps/Deployment/restart, *, allow
+      p, role:systems-dev, applications, sync, *, allow
+      p, role:systems-dev, applications, get, *, allow
+      p, role:systems-dev, logs, get, *, allow
+      p, role:systems-dev, projects, get, *, allow
+      p, role:apps-dev, applications, action/extensions/Deployment/restart, *, allow
+      p, role:apps-dev, applications, action/apps/Deployment/restart, *, allow
+      p, role:apps-dev, applications, sync, *, allow
+      p, role:apps-dev, applications, get, *, allow
+      p, role:apps-dev, logs, get, *, allow
+      p, role:apps-dev, projects, get, *, allow
+      g, g-devsupport-admin, role:admin
+      g, G-Devsupport-SDLS-Services-Staff, role:services-dev
+      g, G-Devsupport-SDLS-Systems-Staff, role:systems-dev
+      g, G-Devsupport-SDLS-Apps-Staff, role:apps-dev
+ 
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
     # Role definitions and bindings are in the form:
