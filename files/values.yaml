@@ -169,6 +169,8 @@ configs:
     # -- Create the argocd-cm configmap for [declarative setup]
     create: true
 
+    url: "https://argocd-test.library.ucla.edu"
+
     # -- Annotations to be added to argocd-cm configmap
     annotations: {}
 
