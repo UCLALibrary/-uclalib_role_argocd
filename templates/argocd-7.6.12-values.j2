@@ -43,7 +43,7 @@ crds:
 global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
-  domain: {{ argocd_version }}
+  domain: {{ argocd_url }}
 
   # -- Runtime class name for all components
   runtimeClassName: ""
@@ -170,7 +170,7 @@ configs:
     # -- Create the argocd-cm configmap for [declarative setup]
     create: true
 
-    url: "https://{{ argocd_version }}"
+    url: "https://{{ argocd_url }}"
 
     # -- Annotations to be added to argocd-cm configmap
     annotations: {}
@@ -4014,44 +4014,8 @@ notifications:
         - app-sync-succeeded
         when: app.status.operationState.phase in ['Succeeded']
    
-    # For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/#default-triggers
     defaultTriggers: |
       - on-deployed
       - on-health-degraded
       - on-sync-failed
       - on-sync-succeeded
-    # trigger.on-deployed: |
-    #   - description: Application is synced and healthy. Triggered once per commit.
-    #     oncePer: app.status.sync.revision
-    #     send:
-    #     - app-deployed
-    #     when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
-    # trigger.on-health-degraded: |
-    #   - description: Application has degraded
-    #     send:
-    #     - app-health-degraded
-    #     when: app.status.health.status == 'Degraded'
-    # trigger.on-sync-failed: |
-    #   - description: Application syncing has failed
-    #     send:
-    #     - app-sync-failed
-    #     when: app.status.operationState.phase in ['Error', 'Failed']
-    # trigger.on-sync-running: |
-    #   - description: Application is being synced
-    #     send:
-    #     - app-sync-running
-    #     when: app.status.operationState.phase in ['Running']
-    # trigger.on-sync-status-unknown: |
-    #   - description: Application status is 'Unknown'
-    #     send:
-    #     - app-sync-status-unknown
-    #     when: app.status.sync.status == 'Unknown'
-    # trigger.on-sync-succeeded: |
-    #   - description: Application syncing has succeeded
-    #     send:
-    #     - app-sync-succeeded
-    #     when: app.status.operationState.phase in ['Succeeded']
-    #
-    # For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers/#default-triggers
-    # defaultTriggers: |
-    #   - on-sync-status-unknown
