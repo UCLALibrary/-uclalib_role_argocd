@@ -17,6 +17,11 @@
     path: '{{ externsecret_tmp.path }}'
     state: absent
 
+- name: Remove esobjects temp dir
+  file:
+    path: '{{ esobjects_tmp.path }}'
+    state: absent
+
 - name: Remove certmgr temp dir
   file:
     path: '{{ certmgr_tmp.path }}'
