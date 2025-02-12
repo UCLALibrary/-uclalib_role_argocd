@@ -4,3 +4,8 @@
     kubectl create namespace {{ argocd_namespace }}
   environment:
     KUBECONFIG: "{{ k3s_kubeconfig_path }}"
+  changed_when:
+    - '"already exists" not in manifest.stderr'
+  failed_when:
+    - manifest.rc != 0
+    - '"already exists" not in manifest.stderr'
