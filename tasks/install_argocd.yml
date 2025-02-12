@@ -22,12 +22,7 @@
 - name: Install ArgoCD using env-specific values file
   shell:
     cmd: >
-      helm template
-        argocd argo/argo-cd
-        --namespace {{ argocd_namespace }}
-        -f {{ argocd_wd.path }}/{{ argocd_env_values_path }}
-        --create-namespace
-        --version {{ argocd_version }} | kubectl apply -f -
+      helm template argocd argo/argo-cd --namespace {{ argocd_namespace }} -f {{ argocd_wd.path }}/{{ argocd_env_values_path }} --create-namespace --version {{ argocd_version }} | kubectl apply -f -
   environment:
     KUBECONFIG: "{{ k3s_kubeconfig_path }}"
   register: manifest
