@@ -16,7 +16,7 @@
 
 - name: Copy argocd-values locally
   git:
-    git: "{{ argocd_values_repo_url }}"
+    repo: "{{ argocd_values_repo_url }}"
     dest: "{{ argocd_wd.path }}"
 
 - name: Install ArgoCD using env-specific values file
