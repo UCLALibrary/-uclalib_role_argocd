@@ -1,0 +1,6 @@
+--- 
+- name: Create {{ argocd_namespace }} namespace
+  command: >
+    kubectl create namespace {{ argocd_namespace }}
+  environment:
+    KUBECONFIG: "{{ k3s_kubeconfig_path }}"

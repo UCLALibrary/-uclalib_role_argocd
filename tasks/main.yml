@@ -3,6 +3,8 @@
 
 - import_tasks: install_git.yml
 
+- import_tasks: install_namespace.yml
+
 - import_tasks: install_helm.yml
   tags:
     - install-helm
@@ -21,8 +23,8 @@
 
 - import_tasks: install_esobjects.yml
 
+- import_tasks: install_traefik_rules.yml 
+
 - import_tasks: install_argocd.yml
   tags:
     - install-argocd
-
-- import_tasks: install_traefik_rules.yml 
