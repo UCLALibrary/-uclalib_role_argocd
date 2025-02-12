@@ -20,7 +20,7 @@
     dest: "{{ argocd_wd.path }}"
 
 - name: Install ArgoCD using env-specific values file
-  command:
+  shell:
     cmd: >
       helm template
         argocd argo/argo-cd
