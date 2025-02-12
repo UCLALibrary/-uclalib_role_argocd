@@ -1,6 +1,8 @@
 # tasks file for uclalib_role_argocd
 ---
 
+- import_tasks: install_git.yml
+
 - import_tasks: install_helm.yml
   tags:
     - install-helm

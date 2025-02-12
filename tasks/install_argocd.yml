@@ -15,9 +15,9 @@
   notify: Remove argocd temp dir
 
 - name: Copy argocd-values locally
-  template:
-    src: "argocd-{{ argocd_version }}-values.j2"
-    dest: "{{ argocd_wd.path }}/argocd-{{ argocd_version }}-values.yaml"
+  git:
+    git: "{{ argocd_values_repo_url }}"
+    dest: "{{ argocd_wd.path }}"
 
 - name: Install ArgoCD using env-specific values file
   command:
@@ -25,7 +25,7 @@
       helm upgrade --install 
         argocd argo/argo-cd
         --namespace {{ argocd_namespace }}
-        -f {{ argocd_wd.path }}/argocd-{{ argocd_version }}-values.yaml
+        -f {{ argocd_wd.path }}/{{ argocd_values_path }}
         --create-namespace
         --version {{ argocd_version }}
   environment:
