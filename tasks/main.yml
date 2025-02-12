@@ -21,9 +21,9 @@
   tags:
     - install-cert-manager
 
-- import_tasks: install_esobjects.yml
+#- import_tasks: install_esobjects.yml
 
-- import_tasks: install_traefik_rules.yml 
+#- import_tasks: install_traefik_rules.yml 
 
 - import_tasks: install_argocd.yml
   tags:
