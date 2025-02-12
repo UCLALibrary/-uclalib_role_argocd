@@ -16,7 +16,7 @@
 
 - name: Copy argocd-values locally
   git:
-    repo: "{{ argocd_values_repo_url }}"
+    repo: "{{ argocd_values_file_repo_url }}"
     dest: "{{ argocd_wd.path }}"
 
 - name: Install ArgoCD using env-specific values file
@@ -25,7 +25,7 @@
       helm upgrade --install 
         argocd argo/argo-cd
         --namespace {{ argocd_namespace }}
-        -f {{ argocd_wd.path }}/{{ argocd_values_path }}
+        -f {{ argocd_wd.path }}/{{ argocd_env_values_path }}
         --create-namespace
         --version {{ argocd_version }}
   environment:

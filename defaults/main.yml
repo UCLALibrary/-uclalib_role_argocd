@@ -58,8 +58,5 @@ argocd_secretstoreref_name: argocd-clustersecretstore
 # Namespace to deploy ArgoCD
 argocd_namespace: "argocd"
 
-argocd_values_repo_url: "https://github.com/UCLALibrary/gitops_kubernetes.git"
-argocd_values_path: "infrastructure/deployment/argocd-test.library.ucla.edu-values.yaml"
-
 # Helm Chart version of argocd to deploy. This does NOT coincide with the version of ArgoCD. I.e. 7.6.12 --> ArgoCD 2.12.6
 argocd_version: "7.6.12"
